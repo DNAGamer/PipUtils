@@ -12,6 +12,11 @@ def install(module, direct):
 def remove(module, direct):
     command = direct + " uninstall " + module + " -y"
     os.system(command)
+    
+def update(direct):
+    os.system(direct + " install --upgrade pip")
+    os.system(direct + " freeze > requirements.txt")
+    os.system(direct + " install -r requirements.txt --upgrade")
 
 while True:
     mode = input("Install, update, or remove? ")
@@ -21,16 +26,13 @@ while True:
         module = input("Whats the module called? ")
         if mode == "install":
             install(module, direct)
-            
         elif mode == "remove":
             remove(module, direct)
         else:
             print("something went wrong")
             
     elif mode == "update":
-        os.system(direct + " install --upgrade pip")
-        os.system(direct + " freeze > requirements.txt")
-        os.system(direct + " install -r requirements.txt --upgrade")
+        update(direct)
         
     else:
         print("That isnt a known mode, try again")

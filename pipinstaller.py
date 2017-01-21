@@ -1,9 +1,11 @@
 import os
 import sys
 
-paths = sys.path
-direct = paths[4]
-direct += "\scripts\pip3.5"
+def getdir():
+    paths = sys.path
+    direct = paths[4]
+    direct += "\scripts\pip3.5"
+    return direct
 
 def install(module, direct):
     command = direct + " install " + module
@@ -17,7 +19,13 @@ def update(direct):
     os.system(direct + " install --upgrade pip")
     os.system(direct + " freeze > requirements.txt")
     os.system(direct + " install -r requirements.txt --upgrade")
+    try:
+        os.remove("requirements.txt")
+    except:
+        print("I couldnt clean up after myself :(")
 
+    
+direct = getdir()
 while True:
     mode = input("Install, update, or remove? ")
     mode = mode.lower()

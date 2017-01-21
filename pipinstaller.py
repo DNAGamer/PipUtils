@@ -5,9 +5,6 @@ paths = sys.path
 direct = paths[4]
 direct += "\scripts\pip3.5"
 
-os.system(direct + " install --upgrade pip")
-
-
 def install(module, direct):
     command = direct + " install " + module
     os.system(command)
@@ -31,6 +28,7 @@ while True:
             print("something went wrong")
             
     elif mode == "update":
+        os.system(direct + " install --upgrade pip")
         os.system(direct + " freeze > requirements.txt")
         os.system(direct + " install -r requirements.txt --upgrade")
         
